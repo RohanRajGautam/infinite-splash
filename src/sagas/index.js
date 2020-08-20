@@ -1,5 +1,3 @@
-function* rootSaga() {
-  console.log('root saga is working');
-}
+import imagesSaga from './imagesSaga';
 
-export default rootSaga;
+export default imagesSaga;

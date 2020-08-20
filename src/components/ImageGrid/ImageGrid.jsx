@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import Button from '../Button';
+
+import { loadImages } from '../../actions';
 
 import './styles.css';
 
-const key = '2bSEzlBpFNe-kyUzTXyU8-J9-rcxqP7F4P0PEQW3URU';
-
-const ImageGrid = () => {
-  const [images, setImages] = useState([]);
-
+const ImageGrid = ({ loadImages, images, isLoading, error }) => {
   useEffect(() => {
-    fetch(`https://api.unsplash.com/photos/?client_id=${key}&per_page=28`)
-      .then((res) => res.json())
-      .then((images) => setImages(images));
-  });
+    loadImages();
+  }, [loadImages]);
 
   return (
     <div className='content'>
@@ -26,6 +23,10 @@ const ImageGrid = () => {
           </div>
         ))}
       </section>
+      {error && <div className='error'>{JSON.stringify(error)}</div>}
+      <Button onClick={() => !isLoading && loadImages()} loading={isLoading}>
+        Load More
+      </Button>
     </div>
   );
 };
@@ -36,4 +37,8 @@ const mapStateToProps = ({ isLoading, images, error }) => ({
   error,
 });
 
-export default connect(mapStateToProps)(ImageGrid);
+const mapDispatchToProps = (dispatch) => ({
+  loadImages: () => dispatch(loadImages()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageGrid);
