@@ -4,4 +4,10 @@ const IMAGES = {
   LOAD_FAIL: 'IMAGES_LOAD_FAIL',
 };
 
-export { IMAGES };
+const STATS = {
+  LOAD: 'STAT_LOAD',
+  LOAD_SUCCESS: 'STAT_LOAD_SUCCESS',
+  LOAD_FAIL: 'STAT_LOAD_FAIL',
+};
+
+export { IMAGES, STATS };
