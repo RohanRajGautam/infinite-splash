@@ -5,8 +5,9 @@ import Button from '../Button';
 import { loadImages } from '../../actions';
 
 import './styles.css';
+import Stats from '../Stats';
 
-const ImageGrid = ({ loadImages, images, isLoading, error }) => {
+const ImageGrid = ({ loadImages, images, isLoading, error, imagesStats }) => {
   useEffect(() => {
     loadImages();
   }, [loadImages]);
@@ -14,11 +15,12 @@ const ImageGrid = ({ loadImages, images, isLoading, error }) => {
   return (
     <div className='content'>
       <section className='grid'>
-        {images.map((image) => (
+        {images.map((image, index) => (
           <div
-            key={image.id}
+            key={index}
             className={`item item-${Math.ceil(image.height / image.width)}`}
           >
+            <Stats stats={imagesStats[image.id]} />
             <img src={image.urls.small} alt={image.user.username} />
           </div>
         ))}
@@ -31,10 +33,11 @@ const ImageGrid = ({ loadImages, images, isLoading, error }) => {
   );
 };
 
-const mapStateToProps = ({ isLoading, images, error }) => ({
+const mapStateToProps = ({ isLoading, images, error, imagesStats }) => ({
   isLoading,
   images,
   error,
+  imagesStats,
 });
 
 const mapDispatchToProps = (dispatch) => ({
