@@ -6,6 +6,7 @@ import { IMAGES } from '../constants';
 
 export const getPage = (state) => state.nextPage;
 
+//this is worker saga
 export function* handleImagesLoad() {
   try {
     // select effect allows you to grab a slice of a state
@@ -21,6 +22,7 @@ export function* handleImagesLoad() {
   }
 }
 
+// this is watcher saga
 export default function* watchImagesLoad() {
   yield takeEvery(IMAGES.LOAD, handleImagesLoad);
 }

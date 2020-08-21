@@ -3,7 +3,8 @@ import { IMAGES } from '../constants';
 import { loadImageStats, setImageStats, setImageStatsError } from '../actions';
 import { fetchImageStats } from '../api';
 
-function* handleStatsRequest(id) {
+// worker saga
+export function* handleStatsRequest(id) {
   for (let i = 0; i < 3; i++) {
     try {
       yield put(loadImageStats(id));
@@ -15,6 +16,7 @@ function* handleStatsRequest(id) {
   yield put(setImageStatsError(id));
 }
 
+// watcher saga
 export default function* watchStatsRequest() {
   while (true) {
     const { images } = yield take(IMAGES.LOAD_SUCCESS);
